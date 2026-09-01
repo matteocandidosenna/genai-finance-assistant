@@ -1,18 +1,20 @@
 services:
-  postgres:
-    image: postgres:17
-    container_name: genai-finance-db
-
+  database:
+    image: postgres:17-alpine
+    container_name: finace-database
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: finance
-
+      POSTGRES_DB: finance_db
+      POSTGRES_USER: finance_user
+      POSTGRES_PASSWORD: finance_password
     ports:
-      - "5432:5432"
-
+      - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - finance_data:/var/lib/postgresql/data #important for backup
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finance_user -d finance_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
-  postgres_data:
+  finance_data:
