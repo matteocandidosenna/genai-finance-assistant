@@ -1,5 +1,7 @@
 from datetime import date, datetime
 from decimal import Decimal
+
+#SQLAlchemy ORM allows us to model and interact with relational databases using Python
 from sqlalchemy import CheckConstraint, Date, DateTime, Numeric, String, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
