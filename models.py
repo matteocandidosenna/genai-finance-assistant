@@ -2,7 +2,7 @@ from datetime import date, datetime
 from decimal import Decimal
 
 #SQLAlchemy ORM allows us to model and interact with relational databases using Python
-from sqlalchemy import CheckConstraint, Date, DateTime, Numeric, String, func
+from sqlalchemy import CheckConstraint, Date, DateTime, Numeric, String, ForeignKey, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 class Base(DeclarativeBase):
@@ -27,4 +27,16 @@ class Account(Base):
         Numeric(12, 2),
         nullable = False,
         server_default = "0.00"
+    )
+
+class Transaction(Base):
+    __tablename__ = "transactions"
+
+    id: Mapped[int] = mapped_column(
+        primary_key = True
+    )
+
+    account_id: Mapped[int] = mapped_column(
+        ForeignKey("accounts.id"),
+        nullable = False
     )
