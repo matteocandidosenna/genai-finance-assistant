@@ -40,3 +40,8 @@ class Transaction(Base):
         ForeignKey("accounts.id"),
         nullable = False
     )
+
+    description: Mapped[String] = mapped_column(
+        String(300),
+        nullable = False
+    )
