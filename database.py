@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine, text
+from models import Base # importing the base class from models.py and loads all the objects from there
 
 DATABASE_URL = ("postgresql+psycopg://"
 "finance_user:finance_password@localhost:5433/finance_db") #path to the database URL
@@ -16,6 +17,9 @@ def test_connection():
         print(f"Databse: {database_name}")
         print(f"User: {user_name}")
 
+def create_tables():
+    Base.metadata.create_all(engine)
 
 if __name__ == "__main__":
     test_connection()
+    create_tables()
