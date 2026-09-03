@@ -8,6 +8,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 class Base(DeclarativeBase):
     pass
 
+# regra do pyalchemy: campo: Mapped[tipo_python] = mapped_column(tipo_do_banco)
 class Account(Base):
     __tablename__ = "accounts"
 
@@ -16,17 +17,17 @@ class Account(Base):
         )
 
     name: Mapped[str] = mapped_column(
-        str(100),
+        String(100),
         nullable = False
     )
 
     account_type: Mapped[str] = mapped_column(
-        str(30),
+        String(30),
         nullable = False
     )
 
     opening_balance: Mapped[Decimal] = mapped_column(
-        Decimal(12, 2),
+        Numeric(12, 2),
         nullable = False,
         server_default = "0.00"
     )
@@ -56,17 +57,17 @@ class Transaction(Base):
     )
 
     description: Mapped[str] = mapped_column(
-        str(300),
+        String(300),
         nullable = False
     )
 
     amount: Mapped[Decimal] = mapped_column(
-        Decimal(15,2),
+        Numeric(15,2),
         nullable = False
     )
 
     transaction_type: Mapped[str] = mapped_column(
-        str(50),
+        String(50),
         nullable = False
     )
 
@@ -84,5 +85,4 @@ class Transaction(Base):
         DateTime(timezone = True),
         server_default = func.now(),
         nullable = False
-    ) 
-
+    )
