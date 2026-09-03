@@ -1,10 +1,12 @@
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, text
 from models import Base # importing the base class from models.py and loads all the objects from there
 
 DATABASE_URL = ("postgresql+psycopg://"
-"finance_user:finance_password@localhost:5433/finance_db") #path to the database URL
+"finance_user:finance_password@localhost:5433/finance_db") #path to the database URL, alongside with docker
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL) #engine knows where is the Postgre and manages connections
+SessionLocal = sessionmaker(bind = engine) #produces sessions
 
 #Lets just test the connection for a while
 def test_connection():
